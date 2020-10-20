@@ -41,3 +41,7 @@ gem "wdm", "~> 0.1.1", :install_if => Gem.win_platform?
 
 gem "faraday", "< 1.0"
 
+
+# how-to-fix-jekyll-could-not-find-a-javascript-runtime-error
+# https://stackoverflow.com/a/60385754/5986651
+gem "therubyracer"
