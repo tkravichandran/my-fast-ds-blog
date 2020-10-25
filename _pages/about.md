@@ -1,8 +1,10 @@
 ---
 layout: page
-title: About Me
-permalink: /about/
+title: About
+permalink: /:title:.html
 ---
+
+This is my Deep Learning Journey.
 
 This website is powered by **[fastpages](https://github.com/fastai/fastpages)** [^1].
 
