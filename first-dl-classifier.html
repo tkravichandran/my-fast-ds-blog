@@ -4,19 +4,19 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Markdown template (fastpages) | My DS Blog</title>
+<title>First Deep Learning Image Classifier using fastai | My DS Blog</title>
 <meta name="generator" content="Jekyll v4.1.1" />
-<meta property="og:title" content="Markdown template (fastpages)" />
+<meta property="og:title" content="First Deep Learning Image Classifier using fastai" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Markdown example (fastpages)" />
-<meta property="og:description" content="Markdown example (fastpages)" />
+<meta name="description" content="Is Obama happy, Sad or Dancing?" />
+<meta property="og:description" content="Is Obama happy, Sad or Dancing?" />
 <link rel="canonical" href="https://tkravichandran.github.io/my-fast-ds-blog/first-dl-classifier.html" />
 <meta property="og:url" content="https://tkravichandran.github.io/my-fast-ds-blog/first-dl-classifier.html" />
 <meta property="og:site_name" content="My DS Blog" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-08-25T00:00:00-05:00" />
 <script type="application/ld+json">
-{"url":"https://tkravichandran.github.io/my-fast-ds-blog/first-dl-classifier.html","@type":"BlogPosting","headline":"Markdown template (fastpages)","dateModified":"2020-08-25T00:00:00-05:00","datePublished":"2020-08-25T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://tkravichandran.github.io/my-fast-ds-blog/first-dl-classifier.html"},"description":"Markdown example (fastpages)","@context":"https://schema.org"}</script>
+{"url":"https://tkravichandran.github.io/my-fast-ds-blog/first-dl-classifier.html","@type":"BlogPosting","headline":"First Deep Learning Image Classifier using fastai","dateModified":"2020-08-25T00:00:00-05:00","datePublished":"2020-08-25T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://tkravichandran.github.io/my-fast-ds-blog/first-dl-classifier.html"},"description":"Is Obama happy, Sad or Dancing?","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/my-fast-ds-blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://tkravichandran.github.io/my-fast-ds-blog/feed.xml" title="My DS Blog" /><link rel="shortcut icon" type="image/x-icon" href="/my-fast-ds-blog/images/favicon3.ico">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
@@ -72,13 +72,13 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Markdown template (fastpages)</h1><p class="page-description">Markdown example (fastpages)</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-08-25T00:00:00-05:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">First Deep Learning Image Classifier using fastai</h1><p class="page-description">Is Obama happy, Sad or Dancing?</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-08-25T00:00:00-05:00" itemprop="datePublished">
         Aug 25, 2020
       </time>
        • <span class="read-time" title="Estimated read time">
     
     
-      1 min read
+      6 min read
     
 </span></p>
 
@@ -97,8 +97,282 @@ window.onload = wrap_img;
     </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <ul class="section-nav">
+    <h2 id="goal">Goal</h2>
+
+<p>To make a simple image classifier using fastai and deploy it on the web.</p>
+
+<h2 id="result">Result</h2>
+
+<p>With fastai, it was possible to build a simple Convolution Neural
+Network model (CNN), export it to a <code class="language-plaintext highlighter-rouge">.pkl</code> file and then deploy it on
+Heroku. With this CNN model it was detected “if Obama was Happy, Sad
+or Dancing”. Following is the screen shot of the final output.</p>
+
+<p><img src="./images/obama-classifier/app.png" alt="app" /></p>
+
+<p>The CNN when checked with a validation dataset, had an error rate of
+8%-12%. I explain later why I think the error rate is not as low as 1%.</p>
+
+<p><strong>Why Obama</strong></p>
+
+<p>I have seen example projects where people are able to classify the
+<a href="https://github.com/fastai/bear_voila">type of bear</a>, or <a href="https://whatgame3.herokuapp.com/">type of game</a> using fastai with almost 100%
+accuracy. I wanted to check how good, a simple Deep Learning Model can
+be to identify emotions or what people are doing.</p>
+
+<p>I chose the “Obama dataset” as there were “many” pictures available of
+him with a variety of emotions and associated labels on the <code class="language-plaintext highlighter-rouge">WWW</code>.</p>
+
+<p><strong>Links to the work</strong></p>
+
+<ul>
+  <li>
+    <p><a href="https://github.com/tkravichandran/First-DL-Classifier">Github repository</a></p>
+  </li>
+  <li>
+    <p><a href="https://obama-classifier.herokuapp.com/">Heroku app</a></p>
+  </li>
 </ul>
+
+<div class="Toast">
+   <span class="Toast-icon"><svg class="octicon octicon-info octicon octicon-info" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"></path></svg></span>
+   <span class="Toast-content"> The production code is in a private
+repository as it has my personal `Keys` and is not listed here.</span>
+</div>
+
+<hr />
+
+<h2 id="summary-of-process">Summary of process</h2>
+
+<ul>
+  <li>
+    <p>For computation I use a Gradient machine P5000 (16GB GPU and 30GB
+CPU)</p>
+  </li>
+  <li>
+    <p>Started with importing the right packages.</p>
+  </li>
+  <li>
+    <p>Downloaded and processed the labeled images from Bing.</p>
+  </li>
+  <li>
+    <p>Trained the CNN model.</p>
+
+    <ul>
+      <li>
+        <p>Added augmentation transforms.</p>
+      </li>
+      <li>
+        <p>Varied number of epochs.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Exported a <code class="language-plaintext highlighter-rouge">pkl</code> file of the model.</p>
+  </li>
+  <li>
+    <p>Made a simple app using <code class="language-plaintext highlighter-rouge">Jupiter</code> and deployed it using <code class="language-plaintext highlighter-rouge">Heroku</code>,
+courtesy of <code class="language-plaintext highlighter-rouge">Voila</code>.</p>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="gathering-data-and-cleaning">Gathering data and “cleaning”</h2>
+
+<p>For this part, the <code class="language-plaintext highlighter-rouge">Bing Image Search API</code> was used which was
+available as part of Azure Cognitive Services. The <code class="language-plaintext highlighter-rouge">labels</code> are stored
+as the folder-name and folder contains the images.  The <code class="language-plaintext highlighter-rouge">labels</code> used
+are “sad”, “happy” and “dancing”.</p>
+
+<p>During a cleaning process done after training, unique names are
+required for these images, so we append “sad”, “happy” and “dancing”
+to the file names of the respective folders. Images that don’t have
+any info in them are removed as well. The following shows a list of
+extracted images.</p>
+
+<p><img src="./images/obama-classifier/load.png" alt="load" /></p>
+
+<div class="Toast">
+   <span class="Toast-icon"><svg class="octicon octicon-info octicon octicon-info octicon octicon-info" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"></path></svg></span>
+   <span class="Toast-content">You can only download 150 images at a time
+and there is a 7 day free trial period with Bing.</span>
+</div>
+
+<hr />
+
+<h2 id="making-a-simple-model">Making a simple model</h2>
+
+<p>For computer vision the <a href="https://github.com/fastai/fastbook/blob/master/01_intro.ipynb">current state of the art is CNN</a>. Looking
+at other classifications it appears the <code class="language-plaintext highlighter-rouge">resnet18</code> architecture is
+used. Here 18 stands for the number of layers variant of this
+architecture.</p>
+
+<p>It is not required to train this model afresh. A pre-trained model is
+used here basically resting on the shoulders of giants. The parameters
+of the pre-trained model is provided by fastai conveniently. This
+pre-training is based on 1.3 million photos (using the famous ImageNet
+dataset). So the Model has a rich understanding of shapes, colors,
+backgrounds already.</p>
+
+<p><strong>Image transformation</strong></p>
+
+<p>Typically preferred in such models is a square image (for historic
+reasons that it was simple). Some sort of transforms need to be used
+to bring all pictures of different shapes to the same square shape. We
+could squish, add pads to make it square or even crop the images, but
+in each of these cases we are getting unrealistic shapes, wasting
+pixels or missing information respectively. Fastai allows an option
+called <code class="language-plaintext highlighter-rouge">Randomized Resized Cropping</code>. At each epoch the image used is
+a random crop of the image based on a <code class="language-plaintext highlighter-rouge">min_size</code>. In this case it is
+set to 50%.</p>
+
+<p>In addition to this, some augmentations are generated based on each
+image. With each epoch a random version is used. Different sets of
+augmentation includes, scaling the image disproportionately, flipping
+it, making it black and white etc… Some of those transformations are
+shown below.</p>
+
+<p><img src="./images/obama-classifier/aug.png" alt="aug" /></p>
+
+<hr />
+
+<h2 id="cleaning-only-after-making-the-model">Cleaning only after making the model</h2>
+
+<p>Now we straight up start the learner, to build on the pre-trained
+“ImageNet data coefficients” with the “additional data set”. Remember
+that the data has not been cleaned yet. So there are going to be bad
+images such as that of Michelle Obama instead of Obama, or even
+wrongly labeled images.</p>
+
+<p><img src="./images/obama-classifier/michelle.jpg" alt="michelle" /></p>
+
+<p>Once the training is done, we get to see the least confident images
+from the model and now we can start cleaning by either deleting or
+swapping them between folders. This is done with a convenient tool
+from fastai within Jupyter.</p>
+
+<hr />
+
+<h2 id="changing-the-hyper-parameters">Changing the hyper-parameters</h2>
+
+<p>Without cleaning already the Algorithm got to 7% error rate on the
+validation dataset. This error rate is obviously not interesting as
+there are a lot of “bad images”. Once I removed the “bad images”
+(i.e., cleaned it), it went to around 12%. The Cleaning resulted in
+having about 5-15 images less in each folder.</p>
+
+<p>At this point I added the augmented transforms and played with the
+number of epochs to discover they didn’t change much of the error
+rate. I was still running between 8-12% depending on the validation
+set generated each time I ran the entire simulation. Here is the
+confusion matrix based on final simulation with 12% error rate.</p>
+
+<p><img src="./images/obama-classifier/confusion.png" alt="confusion" /></p>
+
+<h3 id="why-is-the-error-rate-so-high">Why is the error rate “so high”?</h3>
+
+<p>Changing epochs or adding transformations doesn’t seem to be the
+changes this Model needs. Let’s look at the least confident and
+wrongly classified validation set,</p>
+
+<p><img src="./images/obama-classifier/loss.png" alt="loss" /></p>
+
+<p>What we see in the first (and second) image is that the Model thinks
+Obama is dancing, while the label says he is smiling. I can make some
+guesses that the model is confused that the hands are doing something
+like in the case of dancing. This just seems like an ambiguous
+situation for the Model. And I “feel” one of the ways to get by this,
+is to train the model with pictures of parades and pictures of Obama
+in conferences to “explain” to the model the differences between
+smiling and dancing in different scenarios. This requires more manual
+cleaning and getting more labeled data such as Obama at parades
+smiling and Obama in press conferences smiling. Finding such images
+with the right labels turned out to be hard and was not the objective
+of this excercise and so I have moved on.</p>
+
+<hr />
+
+<h2 id="deployment">Deployment</h2>
+
+<p>For deployment I tried Binder first and then moved to <code class="language-plaintext highlighter-rouge">Heroku</code> as I
+had some errors in Binder and was not able to circumvent it. The app
+is deployed <a href="https://obama-classifier.herokuapp.com/">here</a> with <code class="language-plaintext highlighter-rouge">Heroku</code>. It was relatively easy to deploy
+the app once we write it in <code class="language-plaintext highlighter-rouge">Jupyter</code> and it’s powered by <code class="language-plaintext highlighter-rouge">Voila</code> and
+<code class="language-plaintext highlighter-rouge">ipywidgets</code>.</p>
+
+<p><img src="./images/obama-classifier/app.png" alt="app" /></p>
+
+<div class="Toast">
+   <span class="Toast-icon"><svg class="octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"></path></svg></span>
+   <span class="Toast-content">Heroku has a slug limit of less than 900Mb
+so use the CPU version of `pytorch` for this.</span>
+</div>
+
+<div class="Toast">
+   <span class="Toast-icon"><svg class="octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"></path></svg></span>
+   <span class="Toast-content">Use the `--debug` option in Procfile to see
+error messages in your render</span>
+</div>
+
+<hr />
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>With this blog post a model to recognize if Obama is Happy, Sad or
+Dancing is discussed. The app has been deployed online to <code class="language-plaintext highlighter-rouge">Heroku</code>.</p>
+
+<hr />
+
+<h2 id="softwaresprogramspackages-used">Softwares/programs/packages used</h2>
+
+<ul>
+  <li>Github</li>
+  <li>Heroku</li>
+  <li>python</li>
+  <li>fastai</li>
+  <li>fastpages</li>
+  <li>Binder</li>
+  <li>Jupyter</li>
+  <li>voila</li>
+</ul>
+
+<!-- ## Time spent on each individual task -->
+
+<!-- | Task                            | Time   | -->
+<!-- |---------------------------------|--------| -->
+<!-- | Model Making                    | 12 hrs | -->
+<!-- | Deploying on Jupyter            | 1 hrs  | -->
+<!-- | Deploying on Binder             | 6 hrs  | -->
+<!-- | Deploying on Heroku             | 3 hrs  | -->
+<!-- | Setting up blog                 | 5 hrs  | -->
+<!-- | Setting up fastpages            | 8 hrs  | -->
+<!-- | Clean up the looks of fastpages | 6 hrs  | -->
+<!-- | Writing a blogpost              | 3 hrs  | -->
+
+<!-- https://drhb.github.io/blog/fastai/2020/03/22/Fastai-Jit.html -->
+
+<!-- https://harish3110.github.io/through-tinted-lenses/data%20processing/fastai/2020/07/09/Fastai-Midlevel-APIs.html -->
+
+<!-- ## todo -->
+
+<!--   * [x] have a look at jupyter notebook -->
+<!--   * [x] Have a look at other blogs -->
+
+<!--   * [x] Goal -->
+<!--   * [x] Result -->
+<!--   * [x] Gathering data -->
+<!--   * [x] making model -->
+<!--   * [x] changing hyper-parameters -->
+<!--   * [x] Conclusion -->
+<!--   * [x] time spent -->
+
+<!--   * [x] spell check -->
+<!--   * [x] re-read -->
+
+<!--   * [x] add the main production ipython file? -->
+
+<!--   * [x] Put tips here and there. -->
 
   </div><a class="u-url" href="/my-fast-ds-blog/first-dl-classifier.html" hidden></a>
 </article>
