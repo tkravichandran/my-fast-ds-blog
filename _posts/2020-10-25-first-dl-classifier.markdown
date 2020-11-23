@@ -5,6 +5,7 @@ description: Is Obama Happy, Sad or Dancing?
 categories: [markdown, posts]
 title: First Deep Learning Image Classifier using fastai
 permalink: /:title.html
+image: images/obama-classifier/loss.png
 ---
 
 ## Goal
