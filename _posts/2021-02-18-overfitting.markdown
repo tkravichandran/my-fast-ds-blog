@@ -9,7 +9,7 @@ image: images/fraud-detection/overfitting.png
 comments: true
 ---
 
-## **Preventing overfitting**
+## **Understanding overfitting**
 
 There are usually two reasons why the Training score and Test score
 differ:
