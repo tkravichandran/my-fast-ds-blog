@@ -6,6 +6,7 @@ categories: [markdown, posts]
 title: How to know if you are actually overfitting
 permalink: /:title.html
 image: images/fraud-detection/overfitting.png
+comments: true
 ---
 
 ## **Preventing overfitting**

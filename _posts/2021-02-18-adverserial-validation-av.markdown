@@ -6,6 +6,7 @@ categories: [markdown, posts]
 title: What can Adverserial Validation do for you?
 permalink: /:title.html
 image: images/fraud-detection/av-overfitting.png
+comments: true
 ---
 
 ## **Introduction**

@@ -6,6 +6,7 @@ categories: [markdown, posts]
 title: Fraud Detection Tabular Kaggle competition
 permalink: /:title.html
 image: images/fraud-detection/chart.png
+comments: true
 ---
 
 
