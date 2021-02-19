@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>What can Adverserial Validation do for you? | My DS Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="What can Adverserial Validation do for you?" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Explanation from my experience in Fraud Detection competition" />
+<meta property="og:description" content="Explanation from my experience in Fraud Detection competition" />
+<link rel="canonical" href="https://tkravichandran.github.io/my-fast-ds-blog/adverserial-validation-av.html" />
+<meta property="og:url" content="https://tkravichandran.github.io/my-fast-ds-blog/adverserial-validation-av.html" />
+<meta property="og:site_name" content="My DS Blog" />
+<meta property="og:image" content="https://tkravichandran.github.io/my-fast-ds-blog/images/fraud-detection/av-overfitting.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-02-18T00:00:00-06:00" />
+<script type="application/ld+json">
+{"headline":"What can Adverserial Validation do for you?","dateModified":"2021-02-18T00:00:00-06:00","url":"https://tkravichandran.github.io/my-fast-ds-blog/adverserial-validation-av.html","datePublished":"2021-02-18T00:00:00-06:00","@type":"BlogPosting","image":"https://tkravichandran.github.io/my-fast-ds-blog/images/fraud-detection/av-overfitting.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://tkravichandran.github.io/my-fast-ds-blog/adverserial-validation-av.html"},"description":"Explanation from my experience in Fraud Detection competition","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/my-fast-ds-blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://tkravichandran.github.io/my-fast-ds-blog/feed.xml" title="My DS Blog" /><link rel="shortcut icon" type="image/x-icon" href="/my-fast-ds-blog/images/favicon3.ico">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/my-fast-ds-blog/">My DS Blog</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/my-fast-ds-blog/:title:.html">About</a><a class="page-link" href="/my-fast-ds-blog/_pages/archive.html">Archive</a><a class="page-link" href="/my-fast-ds-blog/_pages/notes.html">Notes</a><a class="page-link" href="/my-fast-ds-blog/search/">Search</a><a class="page-link" href="/my-fast-ds-blog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">What can Adverserial Validation do for you?</h1><p class="page-description">Explanation from my experience in Fraud Detection competition</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-02-18T00:00:00-06:00" itemprop="datePublished">
+        Feb 18, 2021
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      4 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/my-fast-ds-blog/categories/#markdown">markdown</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/my-fast-ds-blog/categories/#posts">posts</a>
+        
+      
+      </p>
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h2 id="what-can-your-av-do-for-you"><strong>What can your AV do for you?</strong></h2>
+
+<p>Adverserial Validation is a simple technique that helps distinguish
+the difference in the train and the test data. In <a href="https://www.kaggle.com/thejravichandran/adverserial-validation-where-auc-1">this kernel</a>, I
+show how to do AV with a simple example. It involves the following
+steps:</p>
+
+<ol>
+  <li>Concat the train and the test data set.</li>
+  <li>Append a new column “is_test”.</li>
+  <li>Split data into training and validation.</li>
+  <li>Train model and get AUC score on <code class="language-plaintext highlighter-rouge">istest==1</code> for the validating set.</li>
+</ol>
+
+<p><strong>AV can identify out-of-domain data</strong></p>
+
+<p><img src="./images/fraud-detection/av-overfitting.png" alt="av-overfitting.png" /></p>
+
+<p>In the image above, the circles (blue) denote training data. The blue
+line denotes the line fit. Red line denotes an overfit line. Different
+colored stars (blue, green, red, yellow) denote different types of
+test data. <code class="language-plaintext highlighter-rouge">Y</code> is the dependent variable and <code class="language-plaintext highlighter-rouge">X</code> is the independent
+variable. The dotted blue line indicates the predicted value in case
+the data lies beyond the training bounds.</p>
+
+<p>The three regions marked in “big bubbles” are where there is no
+training data and hence these are <strong>out-of-domain data regions</strong>. We
+simply get a very high AUC score (<code class="language-plaintext highlighter-rouge">AUC=1</code>) from AV for these (red,
+green and yellow stars). In <a href="https://www.kaggle.com/thejravichandran/adverserial-validation-where-auc-1">this kernel</a> it is checked with an
+example that the “big bubbles” in the image above have AV <code class="language-plaintext highlighter-rouge">AUC=1</code>.</p>
+
+<p><strong>AV <code class="language-plaintext highlighter-rouge">AUC=1</code> and how they affect test predictions</strong></p>
+
+<p>When the test set is denoted by the green stars, it is clear that the
+resulting test score is going to be “bad”. However, when the test set
+is denoted by the yellow stars, error in predicting seems to be less
+in comparison (despite having AV <code class="language-plaintext highlighter-rouge">AUC=1</code>). When the test set is
+denoted by the red stars the error doesn’t seem to be that bad either
+AV <code class="language-plaintext highlighter-rouge">AUC=1</code>.</p>
+
+<p>From the beginning to the end for this competition, I had <code class="language-plaintext highlighter-rouge">&gt;0.9 AUC</code>,
+and nevertheless ended up with very good results (0.953–&gt;top 10%). In
+addition the OOF score (from training) was less than the TEST score
+informing that the OUT-OF-DOMAIN data was not the problem for the
+score. I am thus inclined to think that in my case I probably end up
+with test data which are out of domain like the red and yellow stars
+and not like the green stars.</p>
+
+<p><strong>How AV is used in the Fraud Detection kaggle competition</strong></p>
+
+<ol>
+  <li>
+    <p>Identify and Remove time columns like <code class="language-plaintext highlighter-rouge">TransactionID</code> and
+<code class="language-plaintext highlighter-rouge">TransactionDT</code></p>
+
+    <p>When AV is first run on this dataset, two columns standout:
+<code class="language-plaintext highlighter-rouge">TransactionDT</code> and <code class="language-plaintext highlighter-rouge">TransactionID</code>. One is the time info in
+seconds and the other is the id of each transaction. Ideally we
+don’t want to be using such time columns as we don’t want the model
+to learn anything specific to the Date or the ID of
+transactions. AV provides a platform to identify such variables and
+eventually we can get rid of them.</p>
+  </li>
+  <li>
+    <p>Removing very different columns for negligible score loss.</p>
+
+    <p>In one of the iterations I had 203 columns with an lb score of
+ <code class="language-plaintext highlighter-rouge">0.953</code>. Removing 20 of the most important AV columns resulted in
+ a small decrease in score <code class="language-plaintext highlighter-rouge">0.9511</code>. I always try to see how the
+ “out of domain” data affects our result.</p>
+  </li>
+  <li>
+    <p>AV helps find aggregations that we need</p>
+
+    <p>This is and will be the greatest reason for doing AV. AV is so
+ powerful that improving my score from top 80% to a top 10% score
+ was done purely by looking at the important AV columns.</p>
+
+    <p>I pretty much used the first 10-20 important AV columns (and a few
+ columns on my own) to determine which columns to choose as UID and
+ which to aggregate over.</p>
+  </li>
+  <li>
+    <p>Find mistakes with your AV</p>
+
+    <p>I applied aggregation to the training dataset and accidentally did
+ not apply it to the test. This was prompty visible in the AV as
+ the aggregated columns showed up first in the “AV important
+ columns”. A quick look at the top AV important columns and I found
+ my error.</p>
+
+    <p>For example, in one of the experiments I got the following:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th> </th>
+          <th>train</th>
+          <th>OOF</th>
+          <th>test (public)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>AUC</td>
+          <td>0.9971</td>
+          <td>0.9426</td>
+          <td>0.9043</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>From this it is possible to infer that there is both overfitting
+ (train»OOF) and Out of Domain issue (OOF»test). Using AV, I was
+ able to find out which columns were giving me the problem. When I
+ probed in deeper into the columns, it turned out that I had
+ accidentally added NaN’s to the test data.</p>
+
+    <p>Once I corrected for it, I ended up with:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th> </th>
+          <th>train</th>
+          <th>OOF</th>
+          <th>test (public)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>AUC</td>
+          <td>0.998</td>
+          <td>0.9474</td>
+          <td>0.9530</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ol>
+
+<h2 id="references"><strong>References</strong></h2>
+
+<ol>
+  <li><a href="https://github.com/fastai/fastbook/blob/master/09_tabular.ipynb">Fastai tabular NN</a></li>
+  <li><a href="https://www.kaggle.com/c/ieee-fraud-detection/discussion/101203">Data description</a></li>
+  <li><a href="https://www.kaggle.com/alijs1/ieee-transaction-columns-reference">Plots and much more for many features</a></li>
+</ol>
+
+  </div><a class="u-url" href="/my-fast-ds-blog/adverserial-validation-av.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/my-fast-ds-blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/my-fast-ds-blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/my-fast-ds-blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p></p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/tkravichandran" title="tkravichandran"><svg class="svg-icon grey"><use xlink:href="/my-fast-ds-blog/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
