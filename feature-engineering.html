@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>What worked and by how much–Feature engineering | My DS Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="What worked and by how much–Feature engineering" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Explanation from my experience in Fraud Detection Competition" />
+<meta property="og:description" content="Explanation from my experience in Fraud Detection Competition" />
+<link rel="canonical" href="https://tkravichandran.github.io/my-fast-ds-blog/feature-engineering.html" />
+<meta property="og:url" content="https://tkravichandran.github.io/my-fast-ds-blog/feature-engineering.html" />
+<meta property="og:site_name" content="My DS Blog" />
+<meta property="og:image" content="https://tkravichandran.github.io/my-fast-ds-blog/images/fraud-detection/overfitting.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-02-18T00:00:00-06:00" />
+<script type="application/ld+json">
+{"headline":"What worked and by how much–Feature engineering","dateModified":"2021-02-18T00:00:00-06:00","url":"https://tkravichandran.github.io/my-fast-ds-blog/feature-engineering.html","datePublished":"2021-02-18T00:00:00-06:00","@type":"BlogPosting","image":"https://tkravichandran.github.io/my-fast-ds-blog/images/fraud-detection/overfitting.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://tkravichandran.github.io/my-fast-ds-blog/feature-engineering.html"},"description":"Explanation from my experience in Fraud Detection Competition","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/my-fast-ds-blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://tkravichandran.github.io/my-fast-ds-blog/feed.xml" title="My DS Blog" /><link rel="shortcut icon" type="image/x-icon" href="/my-fast-ds-blog/images/favicon3.ico">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/my-fast-ds-blog/">My DS Blog</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/my-fast-ds-blog/:title:.html">About</a><a class="page-link" href="/my-fast-ds-blog/_pages/archive.html">Archive</a><a class="page-link" href="/my-fast-ds-blog/_pages/notes.html">Notes</a><a class="page-link" href="/my-fast-ds-blog/search/">Search</a><a class="page-link" href="/my-fast-ds-blog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">What worked and by how much--Feature engineering</h1><p class="page-description">Explanation from my experience in Fraud Detection Competition</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-02-18T00:00:00-06:00" itemprop="datePublished">
+        Feb 18, 2021
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      4 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/my-fast-ds-blog/categories/#markdown">markdown</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/my-fast-ds-blog/categories/#posts">posts</a>
+        
+      
+      </p>
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>What worked and what didn’t work in my journey towards a top 10% score
+(standing on the shoulders of giants) in the
+fraud-detection-competition.</p>
+
+<h1 id="feature-engineering">Feature engineering</h1>
+
+<ol>
+  <li>
+    <p><strong>Fillna</strong></p>
+
+    <p><code class="language-plaintext highlighter-rouge">df.fillna(-9999,inplace=True)</code></p>
+
+    <p>XGB is capable of handling NaNs. It places the NaN rows in one of
+the splits at each node, (based on which gives a better impurity
+score). However if we choose a number to represent NaNs then it
+treats the NaNs like just another value/category. And it is a bit
+faster, due to lesser computations.</p>
+
+    <p>However <code class="language-plaintext highlighter-rouge">fillna</code> boosts the score only by <code class="language-plaintext highlighter-rouge">0.0002</code>.</p>
+  </li>
+  <li>
+    <p><strong>Label Encoding of Categorical data</strong></p>
+
+    <p>All columns with &lt;32000 unique values are made integers and label
+ encoded. This is done to reduce the ram usage. A string in python
+ uses almost <a href="https://stackoverflow.com/q/58041687/5986651">twice as much memory</a> as an integer. Label
+ encoding is done using:</p>
+
+    <p><code class="language-plaintext highlighter-rouge">df.factorize()</code></p>
+  </li>
+  <li>
+    <p><strong>One hot encoding the NaN structure for certain columns</strong></p>
+
+    <p><code class="language-plaintext highlighter-rouge">D2</code> has 50% NaNs and is highly correlated (<code class="language-plaintext highlighter-rouge">0.98</code>) with <code class="language-plaintext highlighter-rouge">D1</code>. In
+ this case <code class="language-plaintext highlighter-rouge">D2</code> is removed and the NaN structure is alone kept.</p>
+
+    <p><code class="language-plaintext highlighter-rouge">D9</code> columns represents the time of transaction in a day. But it
+ contains 86% NaN values. So a new <code class="language-plaintext highlighter-rouge">D9</code> column (<code class="language-plaintext highlighter-rouge">HrOfDay</code>) was
+ created from <code class="language-plaintext highlighter-rouge">TransactionDT</code> using <code class="language-plaintext highlighter-rouge">df["Hr"] =
+ df["TransactionDT"]/(60*60)%24//1/24</code>. And the NaN structure of
+ <code class="language-plaintext highlighter-rouge">D9</code> is One Hot Encoded.</p>
+  </li>
+  <li>
+    <p><strong>Splitting</strong></p>
+
+    <p>There are many categorical columns, that would allow for better
+ models when split. For example, we have “TransactionAmt”, which
+ allows for the split: “dollars” and “cents”. <code class="language-plaintext highlighter-rouge">cents</code> could be a
+ proxy for identifying if the transaction is from another country
+ than US. Possibly there could be a pattern on how frauds happen
+ with “cents”. The “split” is done using the following function:</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">def</span> <span class="nf">split_cols</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">col</span><span class="p">):</span>
+ <span class="n">df</span><span class="p">[</span><span class="s">'cents'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">].</span><span class="n">mod</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+ <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">].</span><span class="n">floordiv</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>    </div>
+
+    <p><img src="./images/fraud-detection/cents.png" alt="cents.png" /></p>
+
+    <p>Another example is <code class="language-plaintext highlighter-rouge">id_31</code>. It has values such as <code class="language-plaintext highlighter-rouge">chrome 65.0</code>,
+ <code class="language-plaintext highlighter-rouge">chrome 66.0 for android</code>. To aid the model we split the version
+ number and browser using the commands below. The same has been
+ done for several other columns, and kept if it resulted in an
+ increase in score or featured high in the feature importance
+ plots.</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">lst_to_rep</span> <span class="o">=</span> <span class="p">[</span><span class="s">r"^.*chrome.*$"</span><span class="p">,</span><span class="s">r"^.*aol.*$"</span><span class="p">,</span><span class="s">r"^.*[Ff]irefox.*$"</span><span class="p">...]</span>
+
+ <span class="n">lst_val</span> <span class="o">=</span> <span class="p">[</span><span class="s">"chrome"</span><span class="p">,</span><span class="s">"aol"</span><span class="p">,</span><span class="s">"firefox"</span><span class="p">,</span><span class="s">"google"</span><span class="p">,</span><span class="s">"ie"</span><span class="p">,</span><span class="s">"safari"</span><span class="p">,</span><span class="s">"opera"</span><span class="p">,</span><span class="s">"samsung"</span><span class="p">,</span><span class="s">"edge"</span><span class="p">,</span><span class="s">"chrome"</span><span class="p">]</span>
+ <span class="n">df</span><span class="p">[</span><span class="s">"id_31_browser"</span><span class="p">].</span><span class="n">replace</span><span class="p">(</span><span class="n">to_replace</span><span class="o">=</span><span class="n">lst_to_rep</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">lst_val</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">);</span>
+</code></pre></div>    </div>
+
+    <p><img src="./images/fraud-detection/id_31.png" alt="id_31.png" /></p>
+  </li>
+  <li>
+    <p><strong>Combining</strong></p>
+
+    <p>Combining values such as <code class="language-plaintext highlighter-rouge">card1</code> and <code class="language-plaintext highlighter-rouge">addr1</code>, by themselves they
+ might not mean much, but together they could correlate to
+ something meaningful. One such combination is the UID. But we
+ don’t keep the UID just as we don’t keep the time columns.</p>
+  </li>
+  <li>
+    <p><strong>Frequency encoding</strong></p>
+
+    <p>The frequency of the values of a column seems important to detect
+ if a transaction is fraud or not.</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">def</span> <span class="nf">encode_CB2</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span><span class="n">uid</span><span class="p">):</span>
+     <span class="n">newcol</span> <span class="o">=</span> <span class="s">"_"</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">uid</span><span class="p">)</span>
+     <span class="c1">## make combined column
+</span>     <span class="n">df1</span><span class="p">[</span><span class="n">newcol</span><span class="p">]</span> <span class="o">=</span> <span class="n">df1</span><span class="p">[</span><span class="n">uid</span><span class="p">].</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">).</span><span class="nb">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s">'_'</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>    </div>
+    <p>Added several features based on this and resulted in increase in
+ score (documented below).</p>
+  </li>
+  <li>
+    <p><strong>Aggregation (transforms) while imputing NaNs</strong></p>
+
+    <p>This is one of the most important parts of the solution which
+ boosted the score all the way into top 10% from top 30%.  Why
+ Aggregations work is explained <a href="https://www.kaggle.com/c/ieee-fraud-detection/discussion/111453">here</a>. The aggregation is done
+ after combining the train and test dataframes. The following
+ <code class="language-plaintext highlighter-rouge">groupby</code> command does it all.</p>
+
+    <p><code class="language-plaintext highlighter-rouge">df_all.groupby(uid,dropna=False)["TransactionAmt"].transform("mean").reset_index(drop=True)</code></p>
+
+    <p>It is very important to add <code class="language-plaintext highlighter-rouge">dropna=False</code>, as there are many NaN
+ rows which would be dropped otherwise. <code class="language-plaintext highlighter-rouge">fillna</code> is not done until
+ the aggregations are made. This way, Nan’s in the aggregated
+ column get imputed.</p>
+
+    <p>Finding the columns to be aggregated was possible using just the
+ AV feature importance seen above and a bit of logic.</p>
+  </li>
+  <li>
+    <p><strong>Removing redundant columns based on Feature Importance</strong></p>
+
+    <p>As far as I have seen, removing redundant columns makes the model
+ faster and rarely improves the score. Having said that I tried to
+ remove columns that seemed redundant but got the score reduced by
+ 0.002, which is a LOT in this competition. So I kept all those
+ variables. However removing redundant <code class="language-plaintext highlighter-rouge">V</code> columns (200 of them)
+ gives a large decrease in time of computation. So those are the
+ ones that are removed.</p>
+  </li>
+  <li>
+    <p><strong>Removing time columns</strong> such as <code class="language-plaintext highlighter-rouge">TransactionDT</code> and <code class="language-plaintext highlighter-rouge">TransactionID</code></p>
+  </li>
+</ol>
+
+<p><img src="./images/fraud-detection/TransactionID.png" alt="TransactionID.png" /></p>
+
+<p><strong>What worked and by how much</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Public LB</th>
+      <th> </th>
+      <th>Private LB</th>
+      <th> </th>
+      <th>Percentile</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>baseline</td>
+      <td>0.9384</td>
+      <td> </td>
+      <td>0.9096</td>
+      <td> </td>
+      <td>Top 80%</td>
+    </tr>
+    <tr>
+      <td>remove 200 <code class="language-plaintext highlighter-rouge">V</code></td>
+      <td>0.9377</td>
+      <td>-0.003</td>
+      <td>0.9107</td>
+      <td>+0.001</td>
+      <td>Top 80%</td>
+    </tr>
+    <tr>
+      <td>remove time cols</td>
+      <td>0.9374</td>
+      <td>-0.0003</td>
+      <td>0.9109</td>
+      <td>+0.0002</td>
+      <td>Top 80%</td>
+    </tr>
+    <tr>
+      <td>Transform <code class="language-plaintext highlighter-rouge">D</code></td>
+      <td>0.9429</td>
+      <td>+0.0055</td>
+      <td>0.9117</td>
+      <td>+0.0008</td>
+      <td>top 50%</td>
+    </tr>
+    <tr>
+      <td>Combine and FE</td>
+      <td>0.9471</td>
+      <td>+0.0042</td>
+      <td>0.9146</td>
+      <td>+0.0029</td>
+      <td>top 30%</td>
+    </tr>
+    <tr>
+      <td>Agg on uid1</td>
+      <td>0.9513</td>
+      <td>+0.0042</td>
+      <td>0.9203</td>
+      <td>+0.0057</td>
+      <td>top 20%</td>
+    </tr>
+    <tr>
+      <td>additional agg</td>
+      <td>0.9535</td>
+      <td>+0.0022</td>
+      <td>0.9220</td>
+      <td>+0.0017</td>
+      <td>top 10%</td>
+    </tr>
+    <tr>
+      <td>fillna</td>
+      <td>0.9537</td>
+      <td>+0.0002</td>
+      <td>0.9223</td>
+      <td>+0.0003</td>
+      <td>top 10%</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="references">References</h2>
+
+<ol>
+  <li><a href="https://www.kaggle.com/c/ieee-fraud-detection/discussion/101203">Data description</a></li>
+  <li><a href="https://www.kaggle.com/alijs1/ieee-transaction-columns-reference">Plots and much more for many features</a></li>
+  <li><a href="https://www.kaggle.com/c/ieee-fraud-detection/discussion/111284">Top Solution </a>, <a href="https://www.kaggle.com/cdeotte/xgb-fraud-with-magic-0-9600/notebook#The-Magic-Feature---UID">top solution model</a></li>
+  <li><a href="https://www.kaggle.com/c/ieee-fraud-detection/discussion/111453">How the Magic UID solution Works</a></li>
+  <li><a href="https://www.kaggle.com/c/ieee-fraud-detection/discussion/111320">Other ideas to find UIDs</a></li>
+  <li><a href="https://www.kaggle.com/c/ieee-fraud-detection/discussion/108575">Notes on Feature Engineering</a></li>
+  <li><a href="https://www.kaggle.com/c/ieee-fraud-detection/discussion/107697">Lessons learnt from Top solution</a></li>
+  <li><a href="https://www.kaggle.com/nroman/eda-for-cis-fraud-detection#ProductCD">Other nice EDAs</a>, and <a href="https://www.kaggle.com/jesucristo/fraud-complete-eda#Memory-reduction">here</a></li>
+  <li>17th place solution</li>
+  <li><a href="https://www.kaggle.com/akasyanama13/eda-what-s-behind-d-features">How to investigate D features</a></li>
+  <li><a href="https://www.kaggle.com/c/ieee-fraud-detection/discussion/99993#576742">Don’t use Time features</a></li>
+  <li><a href="https://github.com/fastai/fastbook/blob/master/09_tabular.ipynb">Fastai tabular NN</a></li>
+</ol>
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="tkravichandran/my-fast-ds-blog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/my-fast-ds-blog/feature-engineering.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/my-fast-ds-blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/my-fast-ds-blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/my-fast-ds-blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p></p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/tkravichandran" title="tkravichandran"><svg class="svg-icon grey"><use xlink:href="/my-fast-ds-blog/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
