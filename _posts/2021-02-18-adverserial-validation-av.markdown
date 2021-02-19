@@ -8,7 +8,7 @@ permalink: /:title.html
 image: images/fraud-detection/av-overfitting.png
 ---
 
-## **What can your AV do for you?**
+## **Introduction**
 
 Adverserial Validation is a simple technique that helps distinguish
 the difference in the train and the test data. In [this kernel](https://www.kaggle.com/thejravichandran/adverserial-validation-where-auc-1), I
@@ -20,7 +20,7 @@ steps:
 3. Split data into training and validation.
 4. Train model and get AUC score on `istest==1` for the validating set.
 
-**AV can identify out-of-domain data**
+## **AV can identify out-of-domain data**
 
 ![av-overfitting.png](./images/fraud-detection/av-overfitting.png)
 
@@ -37,7 +37,7 @@ simply get a very high AUC score (`AUC=1`) from AV for these (red,
 green and yellow stars). In [this kernel](https://www.kaggle.com/thejravichandran/adverserial-validation-where-auc-1) it is checked with an
 example that the "big bubbles" in the image above have AV `AUC=1`.
 
-**AV `AUC=1` and how they affect test predictions**
+## **AV `AUC=1` and how they affect test predictions**
 
 When the test set is denoted by the green stars, it is clear that the
 resulting test score is going to be "bad". However, when the test set
@@ -54,7 +54,7 @@ score. I am thus inclined to think that in my case I probably end up
 with test data which are out of domain like the red and yellow stars
 and not like the green stars.
 
-**How AV is used in the Fraud Detection kaggle competition**
+## **How AV is used in the Fraud Detection kaggle competition**
 
 1. Identify and Remove time columns like `TransactionID` and
    `TransactionDT`
@@ -87,7 +87,7 @@ and not like the green stars.
 4. Find mistakes with your AV
 
 	I applied aggregation to the training dataset and accidentally did
-	not apply it to the test. This was prompty visible in the AV as
+	not apply it to the test. This was promptly visible in the AV as
 	the aggregated columns showed up first in the "AV important
 	columns". A quick look at the top AV important columns and I found
 	my error.

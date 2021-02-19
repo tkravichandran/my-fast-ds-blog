@@ -630,7 +630,7 @@ and not like the green stars.
 4. Find mistakes with your AV
 
 	I applied aggregation to the training dataset and accidentally did
-	not apply it to the test. This was prompty visible in the AV as
+	not apply it to the test. This was promptly visible in the AV as
 	the aggregated columns showed up first in the "AV important
 	columns". A quick look at the top AV important columns and I found
 	my error.
