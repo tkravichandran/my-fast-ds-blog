@@ -5,7 +5,7 @@ description: Explanation from my experience in Fraud Detection Competition
 categories: [markdown, posts]
 title: What worked and by how much--Feature engineering
 permalink: /:title.html
-image: images/fraud-detection/overfitting.png
+image: images/fraud-detection/TransactionID.png
 comments: true
 ---
 
