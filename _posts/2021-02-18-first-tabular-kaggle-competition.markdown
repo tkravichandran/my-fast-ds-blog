@@ -74,6 +74,7 @@ The following are roughly the things that improved my score.
 | Aggregation on uid1                 | 0.9513    | 0.9203     | Top 20%    |
 | Additional aggregation              | 0.9535    | 0.9220     | Top 10%    |
 | Fillna                              | 0.9537    | 0.9223     | Top 10%    |
+| Changed UID                         | 0.9543    | 0.9264     | Top 10%    |
 
 **AUC score increase over time:**
 
