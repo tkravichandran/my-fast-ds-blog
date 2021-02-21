@@ -71,11 +71,11 @@ The following are roughly the things that improved my score.
 | Remove time cols                    | 0.9374    | 0.9109     | Top 80%    |
 | Transform `D`                       | 0.9429    | 0.9117     | Top 50%    |
 | Combine cols and Frequency Encoding | 0.9471    | 0.9146     | Top 30%    |
-| Aggregation on uid1                 | 0.9513    | 0.9203     | Top 20%    |
-| Additional aggregation              | 0.9535    | 0.9220     | Top 10%    |
-| Fillna                              | 0.9537    | 0.9223     | Top 10%    |
-| Changed UID                         | 0.9543    | 0.9264     | Top 10%    |
-
+| Aggregation on uid1                 | 0.9513    | 0.9203     | Top 27%    |
+| Additional aggregations             | 0.9535    | 0.9220     | Top 5%     |
+| Fillna                              | 0.9537    | 0.9223     | Top 5%     |
+| Changed UID                         | 0.9543    | 0.9264     | Top 2%     |
+	
 **AUC score increase over time:**
 
 
