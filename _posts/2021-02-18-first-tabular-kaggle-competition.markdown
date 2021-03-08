@@ -62,6 +62,8 @@ other entity relations.
 
 ## **TL;DR**
 
+My final Kaggle Kernel is here:
+
 The following are roughly the things that improved my score.
 
 | Method                              | Public LB | Private LB | Percentile |
@@ -75,6 +77,8 @@ The following are roughly the things that improved my score.
 | Additional aggregations             | 0.9535    | 0.9220     | Top 5%     |
 | Fillna                              | 0.9537    | 0.9223     | Top 5%     |
 | Changed UID                         | 0.9543    | 0.9264     | Top 2%     |
+
+Main kernel of work done is [here](https://www.kaggle.com/thejravichandran/fraud-detection-v16-new-pipleline-and-testing/notebook).
 	
 **AUC score increase over time:**
 
@@ -176,9 +180,6 @@ computation time.
 |----------------------|--------|---------|--------|
 | baseline             | 0.9384 | 0.9096  | 11mins |
 | remove 200 V columns | 0.9377 | 0.9107  | 7mins  |
-
-
-
 
 ## **Reducing further**
 
